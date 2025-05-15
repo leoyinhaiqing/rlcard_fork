@@ -20,7 +20,14 @@ class LimitholdemEnv(Env):
         '''
         self.name = 'limit-holdem'
         self.default_game_config = DEFAULT_GAME_CONFIG
-        self.game = Game()
+        instance_config = {}
+        for key in config:
+            if key in ["num_players", "allow_step_back"]:
+                instance_config[key] = config[key]
+            if key == "num_players":
+                self.default_game_config['game_num_players'] = config[key]
+
+        self.game = Game(**instance_config)
         super().__init__(config)
         self.actions = ['call', 'raise', 'fold', 'check']
         self.state_shape = [[72] for _ in range(self.num_players)]

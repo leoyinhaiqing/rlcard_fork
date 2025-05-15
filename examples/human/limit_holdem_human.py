@@ -5,14 +5,18 @@ import rlcard
 from rlcard.agents import LimitholdemHumanAgent as HumanAgent
 from rlcard.agents import RandomAgent
 from rlcard.utils.utils import print_card
+import torch
 
 # Make environment
 env = rlcard.make('limit-holdem')
 human_agent = HumanAgent(env.num_actions)
 agent_0 = RandomAgent(num_actions=env.num_actions)
+model_file = "../experiments/limit-holdem_dqn_5000_result/model.pth"
+agent_dqn = torch.load(model_file)
 env.set_agents([
     human_agent,
     agent_0,
+    agent_dqn,
 ])
 
 print(">> Limit Hold'em random agent")

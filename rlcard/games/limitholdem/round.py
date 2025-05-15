@@ -113,6 +113,9 @@ class LimitHoldemRound:
         if self.raised[self.game_pointer] == max(self.raised):
             full_actions.remove('call')
 
+        if "raise" in full_actions:
+            full_actions.remove('raise')
+
         return full_actions
 
     def is_over(self):
